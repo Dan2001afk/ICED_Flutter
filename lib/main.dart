@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iced/Vistas/princ.dart';
 
 import 'Vistas/Insertar.dart';
 
@@ -12,7 +13,7 @@ class IcedInventory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        home:InsertarEquipo(),
+        home:Principal(),
     );
   }
 }

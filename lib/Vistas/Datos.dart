@@ -14,48 +14,69 @@ class ConsultarApi extends StatefulWidget {
 }
 
 class _ConsultarApiState extends State<ConsultarApi> {
-  List<dynamic> Datos=[];
-  Future<void>ConsultarDatos()async{
-    final url = Uri.parse("http://192.168.0.107/ListarEquipos");
+  List<dynamic> Datos = [];
+  Future<void> ConsultarDatos() async {
+    final url = Uri.parse("http://10.190.80.36/ListarEquipos");
     final Respuesta = await http.get(url);
-    if(Respuesta.statusCode==200){
-      print("La Api se consulto correctamente");
-      final jsonResponse =json.decode(Respuesta.body);
+    if (Respuesta.statusCode == 200) {
+      print("La Api se consultó correctamente");
+      final jsonResponse = json.decode(Respuesta.body);
       setState(() {
-        Datos=List.from(jsonResponse);
+        Datos = List.from(jsonResponse);
         print(Datos);
       });
-    }else{
-      print("Error: No se consulto la Api");
+    } else {
+      print("Error: No se consultó la Api");
     }
   }
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     ConsultarDatos();
   }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Datos Equipos")),
+          title: const Text("Datos"),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: ListView.builder(
           itemCount: Datos.length,
           itemBuilder: (context, index) {
             final item = Datos[index];
-            return ListTile(
-              title: Text(item['Equ_id']),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(item['Equi_tipo']),
-                  Text(item['Equi_modelo']),
-                  Text(item['Equi_color']),
-                  Text(item['Equi_serial']),
-                  Text(item['Equi_estado']),
-                  Text(item['equi_especialidad']),
-                ],
+            return Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        item['Equ_id'].toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Center(child: Text('Tipo: ${item['Equi_tipo']}')),
+                    Center(child: Text('Modelo: ${item['Equi_modelo']}')),
+                    Center(child: Text('Color: ${item['Equi_color']}')),
+                    Center(child: Text('Serial: ${item['Equi_serial']}')),
+                    Center(child: Text('Estado: ${item['Equi_estado']}')),
+                    Center(child: Text('Especialidad: ${item['equi_especialidad']}')),
+                  ],
+                ),
               ),
             );
           },
@@ -64,5 +85,3 @@ class _ConsultarApiState extends State<ConsultarApi> {
     );
   }
 }
-
-
