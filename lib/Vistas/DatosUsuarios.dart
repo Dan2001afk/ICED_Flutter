@@ -2,28 +2,30 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
-  runApp(const ConsultarApi());
+
+void main(){
+  runApp(const ConsultarApiUsuarios());
 }
 
-class ConsultarApi extends StatefulWidget {
-  const ConsultarApi({Key? key}) : super(key: key);
+
+class ConsultarApiUsuarios extends StatefulWidget {
+  const ConsultarApiUsuarios({Key? key}) : super(key: key);
 
   @override
-  State<ConsultarApi> createState() => _ConsultarApiState();
+  State<ConsultarApiUsuarios> createState() => _ConsultarApiUsuariosState();
 }
 
-class _ConsultarApiState extends State<ConsultarApi> {
-  List<dynamic> Datos = [];
+class _ConsultarApiUsuariosState extends State<ConsultarApiUsuarios> {
+  List<dynamic> DatosUsuario = [];
   Future<void> ConsultarDatos() async {
-    final url = Uri.parse("http://10.190.80.36/ListarEquipos");
+    final url = Uri.parse("http://172.20.10.9/ListarUsuarios");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       print("La Api se consultó correctamente");
       final jsonResponse = json.decode(Respuesta.body);
       setState(() {
-        Datos = List.from(jsonResponse);
-        print(Datos);
+        DatosUsuario = List.from(jsonResponse);
+        print(DatosUsuario);
       });
     } else {
       print("Error: No se consultó la Api");
@@ -36,11 +38,12 @@ class _ConsultarApiState extends State<ConsultarApi> {
     ConsultarDatos();
   }
 
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Datos"),
+          title: const Text("Datos Usuario"),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -49,9 +52,9 @@ class _ConsultarApiState extends State<ConsultarApi> {
           ),
         ),
         body: ListView.builder(
-          itemCount: Datos.length,
+          itemCount: DatosUsuario.length,
           itemBuilder: (context, index) {
-            final item = Datos[index];
+            final item = DatosUsuario[index];
             return Card(
               margin: const EdgeInsets.all(8),
               child: Padding(
@@ -61,7 +64,7 @@ class _ConsultarApiState extends State<ConsultarApi> {
                   children: [
                     Center(
                       child: Text(
-                        item['Equ_id'].toString(),
+                        item['Usu_Documento'].toString(),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -69,12 +72,12 @@ class _ConsultarApiState extends State<ConsultarApi> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Center(child: Text('Tipo: ${item['Equi_tipo']}')),
-                    Center(child: Text('Modelo: ${item['Equi_modelo']}')),
-                    Center(child: Text('Color: ${item['Equi_color']}')),
-                    Center(child: Text('Serial: ${item['Equi_serial']}')),
-                    Center(child: Text('Estado: ${item['Equi_estado']}')),
-                    Center(child: Text('Especialidad: ${item['equi_especialidad']}')),
+                    Center(child: Text('Nombre: ${item['Usu_Nombre']}')),
+                    Center(child: Text('Apellido: ${item['Usu_Apellido']}')),
+                    Center(child: Text('Tipo: ${item['Usu_tipo']}')),
+                    Center(child: Text('Celular: ${item['Usu_Celular']}')),
+                    Center(child: Text('Correo: ${item['Usu_Correo']}')),
+                    Center(child: Text('Ficha: ${item['Usu_Ficha']}')),
                   ],
                 ),
               ),

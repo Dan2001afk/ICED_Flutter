@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'Datos.dart';
+import 'DatosEquipos.dart';
 
 class InsertarEquipo extends StatefulWidget {
   const InsertarEquipo({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
 
   void _EnviarFormulario() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://10.190.80.36/insertar/";
+      final String ApiUrl = "http://172.20.10.9/insertar/";
       final Map<String, dynamic> requestBody = {
         'Equ_id': _Equ_idcontroller.text,
         'Equi_tipo': _Equi_tipocontroller.text,
@@ -35,7 +35,7 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
       };
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarApi()));
+          context, MaterialPageRoute(builder: (context) => ConsultarApiEquipos()));
 
       final Respuesta = await http.post(Uri.parse(ApiUrl),
           headers: {'Content-type': 'application/json'},
