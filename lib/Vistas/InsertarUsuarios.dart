@@ -18,23 +18,23 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
   final TextEditingController _Usu_tipocontroller = TextEditingController();
   final TextEditingController _Usu_Celularcontroller = TextEditingController();
   final TextEditingController _Usu_Correocontroller = TextEditingController();
-  final TextEditingController _Usu_Fechacontroller = TextEditingController();
+  final TextEditingController _Usu_Fichacontroller = TextEditingController();
 
   void _EnviarFormulario() async {
     if (_formKey.currentState!.validate()) {
       final String ApiUrl = "http://172.20.10.9/insertarUsuario/";
       final Map<String, dynamic> requestBody = {
-        'Equ_id': _Usu_Documentocontroller.text,
-        'Equi_tipo': _Usu_Nombrecontroller.text,
-        'Equi_modelo': _Usu_Apellidocontroller.text,
-        'Equi_color': _Usu_tipocontroller.text,
-        'Equi_serial': _Usu_Celularcontroller.text,
-        'Equi_estado': _Usu_Correocontroller.text,
-        'equi_especialidad': _Usu_Fechacontroller.text
+        'Usu_Documento': _Usu_Documentocontroller.text,
+        'Usu_Nombre': _Usu_Nombrecontroller.text,
+        'Usu_Apellido': _Usu_Apellidocontroller.text,
+        'Usu_tipo': _Usu_tipocontroller.text,
+        'Usu_Celular': _Usu_Celularcontroller.text,
+        'Usu_Correo': _Usu_Correocontroller.text,
+        'Usu_Ficha': _Usu_Fichacontroller.text
       };
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarApiUsuarios()));
+          context, MaterialPageRoute(builder: (context) => ConsultarUsuariosApi()));
 
       final Respuesta = await http.post(Uri.parse(ApiUrl),
           headers: {'Content-type': 'application/json'},
@@ -69,7 +69,7 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
               TextFormField(
                 controller: _Usu_Documentocontroller,
                 decoration: InputDecoration(
-                  labelText: 'ID',
+                  labelText: 'Documento',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
@@ -83,7 +83,7 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
               TextFormField(
                 controller: _Usu_Nombrecontroller,
                 decoration: InputDecoration(
-                  labelText: 'Documento',
+                  labelText: 'Nombre',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
@@ -151,7 +151,7 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _Usu_Fechacontroller,
+                controller: _Usu_Fichacontroller,
                 decoration: InputDecoration(
                   labelText: 'Fecha',
                   border: OutlineInputBorder(),

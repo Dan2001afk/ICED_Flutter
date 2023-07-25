@@ -4,18 +4,18 @@ import 'package:http/http.dart' as http;
 
 
 void main(){
-  runApp(const ConsultarApiUsuarios());
+  runApp(const ConsultarUsuariosApi());
 }
 
 
-class ConsultarApiUsuarios extends StatefulWidget {
-  const ConsultarApiUsuarios({Key? key}) : super(key: key);
+class ConsultarUsuariosApi extends StatefulWidget {
+  const ConsultarUsuariosApi({Key? key}) : super(key: key);
 
   @override
-  State<ConsultarApiUsuarios> createState() => _ConsultarApiUsuariosState();
+  State<ConsultarUsuariosApi> createState() => _ConsultarUsuariosApiState();
 }
 
-class _ConsultarApiUsuariosState extends State<ConsultarApiUsuarios> {
+class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
   List<dynamic> DatosUsuario = [];
   Future<void> ConsultarDatos() async {
     final url = Uri.parse("http://172.20.10.9/ListarUsuarios");

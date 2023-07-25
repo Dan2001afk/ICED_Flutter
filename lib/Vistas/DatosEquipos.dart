@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(const ConsultarApiEquipos());
+  runApp(const ConsultarEquiposApi());
 }
 
-class ConsultarApiEquipos extends StatefulWidget {
-  const ConsultarApiEquipos({Key? key}) : super(key: key);
+class ConsultarEquiposApi extends StatefulWidget {
+  const ConsultarEquiposApi({Key? key}) : super(key: key);
 
   @override
-  State<ConsultarApiEquipos> createState() => _ConsultarApiEquiposState();
+  State<ConsultarEquiposApi> createState() => _ConsultarEquiposApiState();
 }
 
-class _ConsultarApiEquiposState extends State<ConsultarApiEquipos> {
+class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   List<dynamic> Datos = [];
+
   Future<void> ConsultarDatos() async {
     final url = Uri.parse("http://172.20.10.9/ListarEquipos");
     final Respuesta = await http.get(url);
@@ -85,3 +86,5 @@ class _ConsultarApiEquiposState extends State<ConsultarApiEquipos> {
     );
   }
 }
+
+

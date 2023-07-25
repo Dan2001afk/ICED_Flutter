@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'DatosEquipos.dart';
 
+
 class InsertarEquipo extends StatefulWidget {
   const InsertarEquipo({Key? key}) : super(key: key);
 
@@ -18,8 +19,7 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
   final TextEditingController _Equi_colorcontroller = TextEditingController();
   final TextEditingController _Equi_serialcontroller = TextEditingController();
   final TextEditingController _Equi_estadocontroller = TextEditingController();
-  final TextEditingController _equi_especialidadcontroller =
-  TextEditingController();
+  final TextEditingController _equi_especialidadcontroller = TextEditingController();
 
   void _EnviarFormulario() async {
     if (_formKey.currentState!.validate()) {
@@ -35,7 +35,7 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
       };
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarApiEquipos()));
+          context, MaterialPageRoute(builder: (context) => ConsultarEquiposApi()));
 
       final Respuesta = await http.post(Uri.parse(ApiUrl),
           headers: {'Content-type': 'application/json'},
