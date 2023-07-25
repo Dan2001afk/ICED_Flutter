@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iced/Vistas/Login.dart';
 import 'package:lottie/lottie.dart';
 import 'package:iced/Vistas/Principal.dart';
 
@@ -15,7 +16,7 @@ class _SplashState extends State<Splash> {
     Future.delayed(Duration(seconds: 7), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Principal()),
+        MaterialPageRoute(builder: (context) => Login()),
       );
     });
     super.initState();
