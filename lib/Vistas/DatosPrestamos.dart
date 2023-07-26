@@ -62,7 +62,7 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
                   children: [
                     Center(
                       child: Text(
-                        item['Pres_id'].toString(),
+                        item['Pres_Id'].toString(),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -73,7 +73,7 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
                     Center(child: Text('Fecha Entrega: ${item['Pres_Fec_Entrega']}')),
                     Center(child: Text('Hora Entrega: ${item['Pres_Hora_Entrega']}')),
                     Center(child: Text('Tiempo Limite: ${item['Pres_Tiempo_Limite']}')),
-                    Center(child: Text('Observaciones: ${item['Pres_observaciones_entrega']}')),
+                    Center(child: Text('Observaciones: ${item['Pres_Observaciones_entrega']}')),
                     Center(child: Text('Equipo ID: ${item['Pres_Equipos_id']}')),
                     Center(child: Text('Usuario Documento: ${item['Pres_Usuarios_Documento_id']}')),
                   ],

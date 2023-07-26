@@ -30,11 +30,11 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
     if (_formKey.currentState!.validate()) {
       final String ApiUrl = "http://192.168.0.107/insertarPrestamo/";
       final Map<String, dynamic> requestBody = {
-        'Pre_Id': _Pres_Idcontroller.text,
+        'Pres_Id': _Pres_Idcontroller.text,
         'Pres_Fec_Entrega': _Pres_Fec_Entregacontroller.text,
         'Pres_Hora_Entrega': _Pres_Hora_Entregacontroller.text,
         'Pres_Tiempo_Limite': _Pres_Tiempo_Limitecontroller.text,
-        'Pres_observaciones_entrega': _Pres_observaciones_entregacontroller.text,
+        'Pres_Observaciones_entrega': _Pres_observaciones_entregacontroller.text,
         'Equi_serial': _Equi_serialcontroller.text,
         'Pres_Equipos_id': _Pres_Equipos_idcontroller.text,
         'Pres_Usuarios_Documento_id': _Pres_Usuarios_Documento_idcontroller.text
