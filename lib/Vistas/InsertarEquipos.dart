@@ -23,7 +23,7 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
 
   void _EnviarFormulario() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://192.168.0.107/insertar/";
+      final String ApiUrl = "http://192.168.1.84/insertar/";
       final Map<String, dynamic> requestBody = {
         'Equ_id': _Equ_idcontroller.text,
         'Equi_tipo': _Equi_tipocontroller.text,

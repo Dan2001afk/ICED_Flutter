@@ -4,7 +4,7 @@ import '../Figuras/IconoLogin.dart';
 import 'Principal.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({Key? key, required String userType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

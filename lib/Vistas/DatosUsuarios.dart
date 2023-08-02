@@ -18,7 +18,7 @@ class ConsultarUsuariosApi extends StatefulWidget {
 class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
   List<dynamic> DatosUsuario = [];
   Future<void> ConsultarDatos() async {
-    final url = Uri.parse("http://192.168.0.107/ListarUsuarios");
+    final url = Uri.parse("http://192.168.1.84/ListarUsuarios");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       print("La Api se consultó correctamente");
