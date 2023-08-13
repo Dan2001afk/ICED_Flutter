@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iced/Vistas/Login.dart';
+import 'package:iced/PantallasAdmin/LoginAdmin.dart';
+import 'package:iced/PantallasUsuario/LoginUsuario.dart';
 
 void main() {
   runApp(const Inicio());
@@ -106,7 +107,7 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Login(userType: 'Usuario'),
+                        builder: (context) => LoginUsuario(userType: 'Usuario'),
                       ),
                     );
                   },

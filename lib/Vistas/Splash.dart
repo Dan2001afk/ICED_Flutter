@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iced/Vistas/Inicio.dart';
-import 'package:iced/Vistas/Login.dart';
+import 'package:iced/PantallasAdmin/LoginAdmin.dart';
 import 'package:lottie/lottie.dart';
 import 'package:iced/Vistas/Principal.dart';
 

@@ -10,8 +10,8 @@ class figura_principal extends StatelessWidget {
       decoration: BoxDecoration(
         //border:  Border.all(color: Colors.white, width: 2),
           shape: BoxShape.circle),
-      child: const Icon(Icons.person,
-          color: Colors.black,size: 200),
+      child: const Icon(Icons.adb_rounded,
+          color: Colors.deepPurple,size: 150),
     );
   }
 
@@ -25,7 +25,7 @@ class figura_principal extends StatelessWidget {
             height: 200,
             margin: EdgeInsets.only(top: 50),
             decoration: BoxDecoration(
-              color: Color.fromRGBO(171, 151, 215, 1.0), // Color rgb
+              color: Color.fromRGBO(250, 248, 248, 1.0), // Color rgb
               shape: BoxShape.circle,
             ),
             child: _icono(),

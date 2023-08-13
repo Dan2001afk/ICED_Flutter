@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:iced/Botones/BotonesLoginUsuario.dart';
 import '../Botones/BotonesLogin.dart';
 import '../Figuras/IconoLogin.dart';
-import 'Principal.dart';
+import '../Vistas/Principal.dart';
 
-class Login extends StatelessWidget {
-  const Login({Key? key, required String userType}) : super(key: key);
+class LoginUsuario extends StatelessWidget {
+  const LoginUsuario({Key? key, required String userType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class Login extends StatelessWidget {
           },
         ),
         title: Text(
-          'Inicio de Sesión',
+          'Inicio de Sesión Usuario ',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -26,21 +27,21 @@ class Login extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: 715,
+          height: 800,
           decoration: const BoxDecoration(
               gradient: RadialGradient(
                   center: Alignment.topLeft,
                   radius: 1.3,
                   colors: [
                     Color(0xFFB1A8F5),
-                    Color(0xFF0B0320),
+                    Color(0xFF1C0A4F),
                   ]
               )
           ),
           child: Column(
             children: [
               figura_principal(),
-              BotonesLogin(),
+              BotonesLoginUsuario(),
             ],
           ),
         ),

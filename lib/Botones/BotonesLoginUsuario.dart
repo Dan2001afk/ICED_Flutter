@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../Vistas/Principal.dart';
-class BotonesLogin extends StatefulWidget {
-  const BotonesLogin({Key? key}) : super(key: key);
+class BotonesLoginUsuario extends StatefulWidget {
+  const BotonesLoginUsuario({Key? key}) : super(key: key);
 
   @override
-  State<BotonesLogin> createState() => _BotonesLoginState();
+  State<BotonesLoginUsuario> createState() => _BotonesLoginUsuarioState();
 }
 
-class _BotonesLoginState extends State<BotonesLogin> {
+class _BotonesLoginUsuarioState extends State<BotonesLoginUsuario> {
   final Usuario = TextEditingController();
   final clave = TextEditingController();
 
@@ -118,10 +118,10 @@ class _BotonesLoginState extends State<BotonesLogin> {
           }
         },
         icon: Icon(Icons.person,color: Color.fromRGBO(255, 255, 255, 1.0),),
-        label: Text("Iniciar Sesion",
+        label: Text("Iniciar Sesion Usuario ",
           style: TextStyle(
               color: Color.fromARGB(255, 255, 255, 255),
-            fontSize: 15
+              fontSize: 15
           ),
         ),
         style: ButtonStyle(

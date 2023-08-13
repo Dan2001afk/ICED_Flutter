@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iced/Vistas/DatosEquipos.dart';
-import 'package:iced/Vistas/DatosPrestamos.dart';
-import 'package:iced/Vistas/DatosUsuarios.dart';
-import 'package:iced/Vistas/InsertarEquipos.dart';
-import 'package:iced/Vistas/InsertarPrestamo.dart';
-import 'package:iced/Vistas/InsertarUsuarios.dart';
+import 'package:iced/PantallasAdmin/DatosEquipos.dart';
+import 'package:iced/PantallasAdmin/DatosPrestamos.dart';
+import 'package:iced/PantallasAdmin/DatosUsuarios.dart';
+import 'package:iced/PantallasAdmin/InsertarEquipos.dart';
+import 'package:iced/PantallasAdmin/InsertarPrestamo.dart';
+import 'package:iced/PantallasAdmin/InsertarUsuarios.dart';
 
 
 class Principal extends StatefulWidget {
