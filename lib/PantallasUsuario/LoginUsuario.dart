@@ -3,6 +3,7 @@ import 'package:iced/Botones/BotonesLoginUsuario.dart';
 import '../Botones/BotonesLogin.dart';
 import '../Figuras/IconoLogin.dart';
 import '../Vistas/Principal.dart';
+import '../Figuras/IconoUsuario.dart';
 
 class LoginUsuario extends StatelessWidget {
   const LoginUsuario({Key? key, required String userType}) : super(key: key);
@@ -40,7 +41,7 @@ class LoginUsuario extends StatelessWidget {
           ),
           child: Column(
             children: [
-              figura_principal(),
+              figura_principal_usuario(),
               BotonesLoginUsuario(),
             ],
           ),
