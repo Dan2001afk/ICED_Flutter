@@ -20,7 +20,7 @@ class LoginUsuario extends StatelessWidget {
           },
         ),
         title: Text(
-          'Inicio de Sesión Usuario ',
+          'Inicio de Sesión Usuarios ',
           style: TextStyle(
             color: Colors.black,
           ),
