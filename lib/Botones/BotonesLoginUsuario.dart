@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:iced/PantallasUsuario/InformacionUsuario.dart';
 
 import '../Vistas/Principal.dart';
 class BotonesLoginUsuario extends StatefulWidget {
@@ -86,7 +87,7 @@ class _BotonesLoginUsuarioState extends State<BotonesLoginUsuario> {
       height: 50,
       child: ElevatedButton.icon(
         onPressed: () {
-          String usu = "ICED";
+          String usu = "usuario";
           String clave1 = "0000";
 
           if (Usuario.text.isEmpty || clave.text.isEmpty) {
@@ -106,7 +107,7 @@ class _BotonesLoginUsuarioState extends State<BotonesLoginUsuario> {
           } else if (Usuario.text == usu && clave.text == clave1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Principal()),
+              MaterialPageRoute(builder: (context) => InicioUsuario()),
             );
           } else {
             Fluttertoast.showToast(
