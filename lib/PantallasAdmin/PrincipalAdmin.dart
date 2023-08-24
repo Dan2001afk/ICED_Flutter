@@ -19,15 +19,24 @@ class _PrincipalState extends State<Principal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pantalla Administrador '),
-        backgroundColor: Color(0xFFB1A8F5),
+        title: const Text(
+          'Pantalla Administrador',
+          style: TextStyle(
+            color: Colors.white, // Cambia este color según tus preferencias para el texto
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Cambia este color según tus preferencias para el icono
+        ),
+        backgroundColor: Color(0xFF7896FA),
       ),
+
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFFB1A8F5), Color(0xFF0B0320)],
+            colors: [Color(0xFF2D2272), Color(0xFF7896FA)],
           ),
         ),
         child: Center(
@@ -43,7 +52,7 @@ class _PrincipalState extends State<Principal> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Color(0xFF3B2B69), // Cambia el color a 0xFFE1D7FF (RGB)
+                  color: Color(0xFF000000), // Cambia el color a 0xFFE1D7FF (RGB)
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -74,7 +83,7 @@ class _PrincipalState extends State<Principal> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF5EDAEA), // Cambia el color a 0xFFE1D7FF (RGB)
+                            primary: Color(0xFF152880), // Cambia el color a 0xFFE1D7FF (RGB)
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -99,7 +108,7 @@ class _PrincipalState extends State<Principal> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFFA6EA5E), // Cambia el color a 0xFFE1D7FF (RGB)
+                            primary: Color(0xFF85D527), // Cambia el color a 0xFFE1D7FF (RGB)
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -126,7 +135,7 @@ class _PrincipalState extends State<Principal> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Color(0xFF3B2B69), // Cambia el color a 0xFFE1D7FF (RGB)
+                  color: Color(0xFF000000), // Cambia el color a 0xFFE1D7FF (RGB)
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -157,7 +166,7 @@ class _PrincipalState extends State<Principal> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF5EDAEA), // Cambia el color a 0xFFE1D7FF (RGB)
+                            primary: Color(0xFF152880), // Cambia el color a 0xFFE1D7FF (RGB)
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -182,7 +191,7 @@ class _PrincipalState extends State<Principal> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFFA6EA5E), // Cambia el color a 0xFFE1D7FF (RGB)
+                            primary: Color(0xFF85D527), // Cambia el color a 0xFFE1D7FF (RGB)
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -209,7 +218,7 @@ class _PrincipalState extends State<Principal> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Color(0xFF3B2B69), // Cambia el color a 0xFFE1D7FF (RGB)
+                  color: Color(0xFF000000), // Cambia el color a 0xFFE1D7FF (RGB)
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -240,7 +249,7 @@ class _PrincipalState extends State<Principal> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFFB00606), // Cambia el color a 0xFFE1D7FF (RGB)
+                            primary: Color(0xFF152880), // Cambia el color a 0xFFE1D7FF (RGB)
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -265,7 +274,7 @@ class _PrincipalState extends State<Principal> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFFA6EA5E), // Cambia el color a 0xFFE1D7FF (RGB)
+                            primary: Color(0xFF85D527), // Cambia el color a 0xFFE1D7FF (RGB)
                             onPrimary: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -279,6 +288,7 @@ class _PrincipalState extends State<Principal> {
                             ],
                           ),
                         ),
+
                       ],
                     ),
                   ),

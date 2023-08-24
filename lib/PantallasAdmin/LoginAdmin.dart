@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Botones/BotonesLogin.dart';
 import '../Figuras/IconoLogin.dart';
-import '../Vistas/PrincipalAdmin.dart';
+import 'PrincipalAdmin.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key, required String userType}) : super(key: key);

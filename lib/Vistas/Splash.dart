@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iced/Vistas/Inicio.dart';
 import 'package:iced/PantallasAdmin/LoginAdmin.dart';
 import 'package:lottie/lottie.dart';
-import 'package:iced/Vistas/PrincipalAdmin.dart';
+import 'package:iced/PantallasAdmin/PrincipalAdmin.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

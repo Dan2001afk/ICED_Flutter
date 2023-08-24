@@ -32,10 +32,15 @@ class HomePage extends StatelessWidget {
               height: 40,
             ),
             SizedBox(width: 8),
-            Text('ICED-SENA'),
+            Text(
+              'ICED-SENA',
+              style: TextStyle(
+                color: Colors.white, // Cambia este color según tus preferencias para el texto
+              ),
+            ),
           ],
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black87,
         actions: [
           TextButton(
             onPressed: () {
@@ -47,8 +52,8 @@ class HomePage extends StatelessWidget {
               );
             },
             style: TextButton.styleFrom(
-              backgroundColor: Colors.black, // Cambia el color de fondo del botón
-              padding: EdgeInsets.symmetric(horizontal:5, vertical: 5), // Ajusta el tamaño del botón
+              backgroundColor: Colors.green, // Cambia el color de fondo del botón
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5), // Ajusta el tamaño del botón
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0), // Ajusta el radio de los bordes
               ),
@@ -60,6 +65,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
@@ -111,14 +117,22 @@ class HomePage extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: Icon(Icons.person),
-                  label: Text('Iniciar como Usuario'),
+                  icon: Icon(Icons.person, color: Colors.white), // Cambia el color del icono
+                  label: Text(
+                    'Iniciar como Usuario',
+                    style: TextStyle(color: Colors.white), // Cambia el color del texto
+                  ),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.green, // Cambia el color de fondo del botón
+                    onPrimary: Colors.white, // Cambia el color del texto en el botón
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
                 ),
+
+
+
                 SizedBox(height: 30),
                 Image.asset(
                   'imagenes/pc.png',

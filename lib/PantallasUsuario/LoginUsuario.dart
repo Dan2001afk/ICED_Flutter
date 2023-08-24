@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iced/Botones/BotonesLoginUsuario.dart';
 import '../Botones/BotonesLogin.dart';
 import '../Figuras/IconoLogin.dart';
-import '../Vistas/PrincipalAdmin.dart';
+import '../PantallasAdmin/PrincipalAdmin.dart';
 import '../Figuras/IconoUsuario.dart';
 
 class LoginUsuario extends StatelessWidget {
