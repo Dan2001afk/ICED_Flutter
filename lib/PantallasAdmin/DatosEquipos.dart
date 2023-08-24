@@ -15,20 +15,31 @@ class ConsultarEquiposApi extends StatefulWidget {
 
 class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   List<dynamic> Datos = [];
+  List<dynamic> DatosFiltrados = [];
 
   Future<void> ConsultarDatos() async {
-    final url = Uri.parse("http://192.168.1.18/ListarEquipos");
+    final url = Uri.parse("http://10.190.80.127/ListarEquipos");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       print("La Api se consultó correctamente");
       final jsonResponse = json.decode(Respuesta.body);
       setState(() {
         Datos = List.from(jsonResponse);
+        DatosFiltrados = Datos; // Inicialmente, los datos filtrados son los mismos que los datos originales
         print(Datos);
       });
     } else {
       print("Error: No se consultó la Api");
     }
+  }
+
+  void _filtrarPorId(int id) {
+    setState(() {
+      DatosFiltrados = Datos.where((item) {
+        final itemId = item['Equ_id'] as int;
+        return itemId == id;
+      }).toList();
+    });
   }
 
   @override
@@ -48,11 +59,25 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
               Navigator.pop(context);
             },
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () async {
+                final String? query = await showSearch(
+                  context: context,
+                  delegate: DataSearch(),
+                );
+                if (query != null && query.isNotEmpty) {
+                  _filtrarPorId(int.parse(query));
+                }
+              },
+            ),
+          ],
         ),
         body: ListView.builder(
-          itemCount: Datos.length,
+          itemCount: DatosFiltrados.length,
           itemBuilder: (context, index) {
-            final item = Datos[index];
+            final item = DatosFiltrados[index];
             return Card(
               margin: const EdgeInsets.all(8),
               child: Padding(
@@ -87,4 +112,36 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   }
 }
 
+class DataSearch extends SearchDelegate<String> {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
 
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, '');
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container(); // No se necesita implementar resultados en este ejemplo
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Container(); // No se necesita implementar sugerencias en este ejemplo
+  }
+}

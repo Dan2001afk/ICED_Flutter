@@ -17,7 +17,7 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
   List<dynamic> DatosPrestamos = [];
 
   Future<void> ConsultarDatosPrestamos() async {
-    final url = Uri.parse("http://192.168.1.84/ListarPrestamos");
+    final url = Uri.parse("http://10.190.80.127/ListarPrestamos");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       print("La Api se consultó correctamente");

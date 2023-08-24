@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:iced/PantallasAdmin/DatosUsuarios.dart';
 import 'dart:convert';
 import 'DatosPrestamos.dart';
 import 'package:intl/intl.dart';
@@ -41,7 +42,7 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
       };
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarPrestamosApi()));
+          context, MaterialPageRoute(builder: (context) => ConsultarUsuariosApi()));
 
       final Respuesta = await http.post(Uri.parse(ApiUrl),
           headers: {'Content-type': 'application/json'},
