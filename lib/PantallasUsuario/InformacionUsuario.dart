@@ -12,7 +12,6 @@ class InicioUsuario extends StatelessWidget {
     );
   }
 }
-
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          'Pantalla Usuario ',
+          'Pantalla Usuario',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -44,6 +43,76 @@ class WelcomeScreen extends StatelessWidget {
                     Color(0xFF1C0A4F),
                   ]
               )
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Equipos 100',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Disponibles 87',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.green,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Ocupados 13',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

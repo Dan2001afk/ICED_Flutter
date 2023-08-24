@@ -2,7 +2,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iced/PantallasUsuario/InformacionUsuario.dart';
 
-import '../Vistas/Principal.dart';
+import '../Vistas/PrincipalAdmin.dart';
 class BotonesLoginUsuario extends StatefulWidget {
   const BotonesLoginUsuario({Key? key}) : super(key: key);
 
