@@ -18,7 +18,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   TextEditingController equipoIdController = TextEditingController();
 
   Future<void> ConsultarDatos() async {
-    final url = Uri.parse("http://192.168.1.44/ListarEquipos");
+    final url = Uri.parse("http://192.168.238.223/ListarEquipos");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -31,7 +31,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   }
 
   Future<void> BuscarEquipo(int equipoId) async {
-    final url = Uri.parse("http://192.168.1.44/BuscarEquipo/$equipoId");
+    final url = Uri.parse("http://192.168.238.223/BuscarEquipo/$equipoId");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
