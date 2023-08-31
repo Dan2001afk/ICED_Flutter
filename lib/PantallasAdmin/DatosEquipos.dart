@@ -15,7 +15,7 @@ class ConsultarEquiposApi extends StatefulWidget {
 
 class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   List<dynamic> Datos = [];
-  TextEditingController   equipoIdController = TextEditingController();
+  TextEditingController equipoIdController = TextEditingController();
 
   Future<void> ConsultarDatos() async {
     final url = Uri.parse("http://10.190.80.127/ListarEquipos");
@@ -43,6 +43,18 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
     }
   }
 
+  Future<void> EliminarEquipo(int equipoId) async {
+    final url = Uri.parse("http://10.190.80.127/EliminarEquipo/$equipoId");
+    final Respuesta = await http.delete(url);
+    if (Respuesta.statusCode == 200) {
+      final jsonResponse = json.decode(Respuesta.body);
+      print(jsonResponse['Mensaje']);
+      ConsultarDatos();
+    } else {
+      print("Error: No se pudo eliminar el equipo");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -53,9 +65,8 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.purple, // Color principal de la aplicación
-         // Color de acento
-        fontFamily: 'Roboto', // Fuente de texto
+        primaryColor: Colors.purple,
+        fontFamily: 'Roboto',
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -81,14 +92,52 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
                 ),
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  final equipoId = int.tryParse(equipoIdController.text);
-                  if (equipoId != null) {
-                    BuscarEquipo(equipoId);
-                  }
-                },
-                child: const Text('Buscar Equipo'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      final equipoId = int.tryParse(equipoIdController.text);
+                      if (equipoId != null) {
+                        BuscarEquipo(equipoId);
+                      }
+                    },
+                    child: const Text('Buscar Equipo'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      final equipoId = int.tryParse(equipoIdController.text);
+                      if (equipoId != null) {
+                        // Mostrar el diálogo de confirmación
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Elimainar'),
+                              content: Text('¿ESTAS SEGURO DE ELIMINAR EL DISPOSTIVO?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Cerrar el diálogo
+                                  },
+                                  child: Text('Cancelar'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Cerrar el diálogo
+                                    EliminarEquipo(equipoId);
+                                  },
+                                  child: Text('Eliminar'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: const Text('Eliminar Equipo por ID'),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -98,7 +147,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
                     final item = Datos[index];
                     return Card(
                       margin: const EdgeInsets.all(8),
-                      elevation: 4, // Sombra del card
+                      elevation: 4,
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(
