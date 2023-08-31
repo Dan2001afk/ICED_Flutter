@@ -18,7 +18,7 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
   TextEditingController prestamoIdController = TextEditingController();
 
   Future<void> ConsultarDatosPrestamos() async {
-    final url = Uri.parse("http://192.168.238.223/ListarPrestamos");
+    final url = Uri.parse("http://10.190.80.127/ListarPrestamos");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -30,8 +30,8 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
     }
   }
 
-  Future<void> BuscarPrestamo(int prestamoID) async {
-    final url = Uri.parse("http://192.168.1.44/BuscarPrestamo/$prestamoID");
+  Future<void> BuscarPrestamo(int Pres_Id) async {
+    final url = Uri.parse("http://10.190.80.127/BuscarPrestamo/$Pres_Id");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
