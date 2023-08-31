@@ -15,10 +15,10 @@ class ConsultarEquiposApi extends StatefulWidget {
 
 class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   List<dynamic> Datos = [];
-  TextEditingController equipoIdController = TextEditingController();
+  TextEditingController   equipoIdController = TextEditingController();
 
   Future<void> ConsultarDatos() async {
-    final url = Uri.parse("http://192.168.238.223/ListarEquipos");
+    final url = Uri.parse("http://10.190.80.127/ListarEquipos");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -31,7 +31,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   }
 
   Future<void> BuscarEquipo(int equipoId) async {
-    final url = Uri.parse("http://192.168.238.223/BuscarEquipo/$equipoId");
+    final url = Uri.parse("http://10.190.80.127/BuscarEquipo/$equipoId");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -53,7 +53,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.blue, // Color principal de la aplicación
+        primaryColor: Colors.purple, // Color principal de la aplicación
          // Color de acento
         fontFamily: 'Roboto', // Fuente de texto
       ),
