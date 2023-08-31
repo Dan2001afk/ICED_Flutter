@@ -29,7 +29,7 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
 
   void _EnviarFormulario() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://192.168.1.84/insertarPrestamo/";
+      final String ApiUrl = "http://192.168.238.223/insertarPrestamo/";
       final Map<String, dynamic> requestBody = {
         'Pres_Id': _Pres_Idcontroller.text,
         'Pres_Fec_Entrega': _Pres_Fec_Entregacontroller.text,
@@ -42,7 +42,7 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
       };
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarUsuariosApi()));
+          context, MaterialPageRoute(builder: (context) => ConsultarPrestamosApi()));
 
       final Respuesta = await http.post(Uri.parse(ApiUrl),
           headers: {'Content-type': 'application/json'},
