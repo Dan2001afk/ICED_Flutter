@@ -20,9 +20,9 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
   final TextEditingController _Usu_Correocontroller = TextEditingController();
   final TextEditingController _Usu_Fichacontroller = TextEditingController();
 
-  void _EnviarFormulario() async {
+  void _EnviarFormularioUsuario() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://10.190.80.127/insertarUsuario/";
+      final String ApiUrl = "http://10.190.82.220/insertarUsuario/";
       final Map<String, dynamic> requestBody = {
         'Usu_Documento': _Usu_Documentocontroller.text,
         'Usu_Nombre': _Usu_Nombrecontroller.text,
@@ -165,7 +165,7 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _EnviarFormulario,
+                onPressed: _EnviarFormularioUsuario,
                 child: const Text('Guardar Datos'),
               )
             ],

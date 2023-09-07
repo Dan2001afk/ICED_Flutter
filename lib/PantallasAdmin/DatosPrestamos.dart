@@ -18,7 +18,7 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
   TextEditingController prestamoIdController = TextEditingController();
 
   Future<void> ConsultarDatosPrestamos() async {
-    final url = Uri.parse("http://10.190.80.127/ListarPrestamos");
+    final url = Uri.parse("http://10.190.82.220/ListarPrestamos");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -26,12 +26,12 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
         DatosPrestamos = List.from(jsonResponse);
       });
     } else {
-      print("Error: No se consultó la Api");
+      print("Error: No se consultó la API");
     }
   }
 
   Future<void> BuscarPrestamo(int Pres_Id) async {
-    final url = Uri.parse("http://10.190.80.127/BuscarPrestamo/$Pres_Id");
+    final url = Uri.parse("http://10.190.82.220/BuscarPrestamo/$Pres_Id");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -40,6 +40,18 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
       });
     } else {
       print("Error: No se encontró el Préstamo");
+    }
+  }
+
+  Future<void> EliminarPrestamo(int Pres_Id) async {
+    final url = Uri.parse("http://10.190.82.220/EliminarPrestamo/$Pres_Id");
+    final Respuesta = await http.delete(url);
+    if (Respuesta.statusCode == 200) {
+      final jsonResponse = json.decode(Respuesta.body);
+      print(jsonResponse['Mensaje']);
+      ConsultarDatosPrestamos();
+    } else {
+      print("Error: No se pudo eliminar el Préstamo");
     }
   }
 
@@ -84,6 +96,44 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
                   }
                 },
                 child: const Text('Buscar Préstamo'),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      final prestamoID = int.tryParse(prestamoIdController.text);
+                      if (prestamoID != null) {
+                        // Mostrar el diálogo de confirmación
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Eliminar'),
+                              content: Text('¿ESTÁS SEGURO DE ELIMINAR EL PRÉSTAMO?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Cerrar el diálogo
+                                  },
+                                  child: Text('Cancelar'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Cerrar el diálogo
+                                    EliminarPrestamo(prestamoID);
+                                  },
+                                  child: Text('Eliminar'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: const Text('Eliminar Préstamo por ID'),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               Expanded(

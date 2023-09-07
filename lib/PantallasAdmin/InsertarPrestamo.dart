@@ -27,9 +27,9 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
   final TextEditingController _Pres_Usuarios_Documento_idcontroller = TextEditingController();
 
 
-  void _EnviarFormulario() async {
+  void _EnviarFormularioPrestamos() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://10.190.80.127/insertarPrestamo/";
+      final String ApiUrl = "http://10.190.82.220/insertarPrestamo/";
       final Map<String, dynamic> requestBody = {
         'Pres_Id': _Pres_Idcontroller.text,
         'Pres_Fec_Entrega': _Pres_Fec_Entregacontroller.text,
@@ -42,7 +42,7 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
       };
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarUsuariosApi()));
+          context, MaterialPageRoute(builder: (context) => ConsultarPrestamosApi()));
 
       final Respuesta = await http.post(Uri.parse(ApiUrl),
           headers: {'Content-type': 'application/json'},
@@ -199,7 +199,7 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _EnviarFormulario,
+                onPressed: _EnviarFormularioPrestamos,
                 child: const Text('Guardar Datos'),
               )
             ],

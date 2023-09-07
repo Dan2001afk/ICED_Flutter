@@ -18,7 +18,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   TextEditingController equipoIdController = TextEditingController();
 
   Future<void> ConsultarDatos() async {
-    final url = Uri.parse("http://10.190.80.127/ListarEquipos");
+    final url = Uri.parse("http://10.190.82.220/ListarEquipos");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -31,7 +31,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   }
 
   Future<void> BuscarEquipo(int equipoId) async {
-    final url = Uri.parse("http://10.190.80.127/BuscarEquipo/$equipoId");
+    final url = Uri.parse("http://10.190.82.220/BuscarEquipo/$equipoId");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -44,7 +44,7 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   }
 
   Future<void> EliminarEquipo(int equipoId) async {
-    final url = Uri.parse("http://10.190.80.127/EliminarEquipo/$equipoId");
+    final url = Uri.parse("http://10.190.82.220/EliminarEquipo/$equipoId");
     final Respuesta = await http.delete(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
