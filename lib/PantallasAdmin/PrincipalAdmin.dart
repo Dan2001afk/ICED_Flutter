@@ -28,7 +28,7 @@ class _PrincipalState extends State<Principal> {
         iconTheme: IconThemeData(
           color: Colors.white, // Cambia este color según tus preferencias para el icono
         ),
-        backgroundColor: Color(0xFF7896FA),
+        backgroundColor: Color(0xFF6C1073),
       ),
 
       body: DecoratedBox(
@@ -36,7 +36,7 @@ class _PrincipalState extends State<Principal> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF2D2272), Color(0xFF7896FA)],
+            colors: [Color(0xFF2D2272), Color(0xFF6C1073)],
           ),
         ),
         child: Center(

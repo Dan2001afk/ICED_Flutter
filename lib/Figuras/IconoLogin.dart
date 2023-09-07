@@ -11,7 +11,7 @@ class figura_principal extends StatelessWidget {
         //border:  Border.all(color: Colors.white, width: 2),
           shape: BoxShape.circle),
       child: const Icon(Icons.adb_rounded,
-          color: Colors.deepPurple,size: 150),
+          color: Colors.deepPurple,size: 190),
     );
   }
 
