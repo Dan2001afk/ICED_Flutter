@@ -29,7 +29,7 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
 
   void _EnviarFormularioPrestamos() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://10.190.82.220/insertarPrestamo/";
+      final String ApiUrl = "http://10.190.82.210/insertarPrestamo/";
       final Map<String, dynamic> requestBody = {
         'Pres_Id': _Pres_Idcontroller.text,
         'Pres_Fec_Entrega': _Pres_Fec_Entregacontroller.text,

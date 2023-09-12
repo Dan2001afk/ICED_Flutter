@@ -131,8 +131,6 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-
-
                 SizedBox(height: 30),
                 Image.asset(
                   'imagenes/pc.png',

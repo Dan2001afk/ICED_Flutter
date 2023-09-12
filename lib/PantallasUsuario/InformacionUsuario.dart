@@ -31,7 +31,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   Future<void> _fetchCantidadEquipos() async {
     final response = await http.get(
-        Uri.parse('http://10.190.82.220/ContarEquipos'));
+        Uri.parse('http://10.190.82.210/ContarEquipos'));
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final cantidadEquipos = jsonData['cantidad_equipos'];
