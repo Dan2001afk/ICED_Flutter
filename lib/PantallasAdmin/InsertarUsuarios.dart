@@ -22,7 +22,7 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
 
   void _EnviarFormularioUsuario() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://10.190.82.210/insertarUsuario/";
+      final String ApiUrl = "http://192.168.1.44/insertarUsuario/";
       final Map<String, dynamic> requestBody = {
         'Usu_Documento': _Usu_Documentocontroller.text,
         'Usu_Nombre': _Usu_Nombrecontroller.text,

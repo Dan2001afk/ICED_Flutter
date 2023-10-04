@@ -18,7 +18,7 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
   TextEditingController usuarioIdController = TextEditingController();
 
   Future<void> ConsultarDatos() async {
-    final url = Uri.parse("http://10.190.82.210/ListarUsuarios");
+    final url = Uri.parse("http://192.168.1.44/ListarUsuarios");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -31,7 +31,7 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
   }
 
   Future<void> BuscarUsuario(int usuarioId) async {
-    final url = Uri.parse("http://10.190.82.210/BuscarUsuario/$usuarioId");
+    final url = Uri.parse("http://192.168.1.44/BuscarUsuario/$usuarioId");
     final Respuesta = await http.get(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
@@ -44,7 +44,7 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
   }
 
   Future<void> EliminarUsuario(int usuarioId) async {
-    final url = Uri.parse("http://10.190.82.210/EliminarUsuario/$usuarioId");
+    final url = Uri.parse("http://192.168.1.44/EliminarUsuario/$usuarioId");
     final Respuesta = await http.delete(url);
     if (Respuesta.statusCode == 200) {
       final jsonResponse = json.decode(Respuesta.body);
