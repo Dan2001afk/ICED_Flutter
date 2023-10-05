@@ -16,6 +16,12 @@ class ConsultarUsuariosApi extends StatefulWidget {
 class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
   List<dynamic> DatosUsuario = [];
   TextEditingController usuarioIdController = TextEditingController();
+  TextEditingController nuevoNombreController = TextEditingController();
+  TextEditingController nuevoApellidoController = TextEditingController();
+  TextEditingController nuevoTipoController = TextEditingController();
+  TextEditingController nuevoCelularController = TextEditingController();
+  TextEditingController nuevoCorreoController = TextEditingController();
+  TextEditingController nuevaFichaController = TextEditingController();
 
   Future<void> ConsultarDatos() async {
     final url = Uri.parse("http://192.168.1.44/ListarUsuarios");
@@ -26,6 +32,8 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
         DatosUsuario = List.from(jsonResponse);
       });
     } else {
+      print("Error en la solicitud: ${Respuesta.statusCode}");
+      print("Cuerpo de la respuesta: ${Respuesta.body}");
       print("Error: No se consultó la Api");
     }
   }
@@ -39,6 +47,8 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
         DatosUsuario = [jsonResponse];
       });
     } else {
+      print("Error en la solicitud: ${Respuesta.statusCode}");
+      print("Cuerpo de la respuesta: ${Respuesta.body}");
       print("Error: No se encontró el Usuario");
     }
   }
@@ -51,7 +61,71 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
       print(jsonResponse['Mensaje']);
       ConsultarDatos();
     } else {
+      print("Error en la solicitud: ${Respuesta.statusCode}");
+      print("Cuerpo de la respuesta: ${Respuesta.body}");
       print("Error: No se pudo eliminar el Usuario");
+    }
+  }
+
+  Future<void> ActualizarUsuario(
+      int usuarioId,
+      String nuevoNombre,
+      String nuevoApellido,
+      String nuevoTipo,
+      String nuevoCelular,
+      String nuevoCorreo,
+      String nuevaFicha,
+      ) async {
+    final url = Uri.parse("http://192.168.1.44/ActualizarUsuario/$usuarioId");
+
+    // Verifica si usuarioId no es nulo antes de incluirlo en el cuerpo de la solicitud
+    final requestBody = {
+      "Usu_Nombre": nuevoNombre,
+      "Usu_Apellido": nuevoApellido,
+      "Usu_tipo": nuevoTipo,
+      "Usu_Celular": nuevoCelular,
+      "Usu_Correo": nuevoCorreo,
+      "Usu_Ficha": nuevaFicha,
+    };
+
+    if (usuarioId != null) {
+      requestBody["Usu_Documento"] = usuarioId.toString();
+    }
+
+    final Respuesta = await http.post(
+      url,
+      body: jsonEncode(requestBody),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (Respuesta.statusCode == 200) {
+      final jsonResponse = json.decode(Respuesta.body);
+      print(jsonResponse['Mensaje']);
+      ConsultarDatos(); // Actualizar la lista de usuarios después de la actualización
+    } else {
+      print("Error en la solicitud: ${Respuesta.statusCode}");
+      print("Cuerpo de la respuesta: ${Respuesta.body}");
+      print("Error: No se pudo actualizar el usuario");
+    }
+  }
+
+
+  Future<void> cargarDatosUsuario(int index) async {
+    if (DatosUsuario.isNotEmpty && index < DatosUsuario.length) {
+      final item = DatosUsuario[index];
+      if (item['Usu_Documento'] != null) {
+        usuarioIdController.text = item['Usu_Documento'].toString();
+        nuevoNombreController.text = item['Usu_Nombre'] ?? '';
+        nuevoApellidoController.text = item['Usu_Apellido'] ?? '';
+        nuevoTipoController.text = item['Usu_tipo'] ?? '';
+        nuevoCelularController.text = item['Usu_Celular'] ?? '';
+        nuevoCorreoController.text = item['Usu_Correo'] ?? '';
+        nuevaFichaController.text = item['Usu_Ficha'] ?? '';
+      } else {
+        print("Error: El campo 'Usu_Documento' es nulo");
+      }
+    } else {
+      print("Error: DatosUsuario está vacía o el índice es inválido");
     }
   }
 
@@ -132,6 +206,81 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
                       }
                     },
                     child: const Text('Eliminar Usuario por ID'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      final usuarioId = int.tryParse(usuarioIdController.text);
+                      if (usuarioId != null) {
+                        cargarDatosUsuario(0); // Cargar datos del primer usuario en la lista
+                        // Mostrar el diálogo de actualización
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Actualizar Usuario'),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      controller: usuarioIdController,
+                                      decoration: InputDecoration(labelText: 'Nuevo ID'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoNombreController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Nombre'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoApellidoController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Apellido'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoTipoController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Tipo'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoCelularController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Celular'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoCorreoController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Correo'),
+                                    ),
+                                    TextField(
+                                      controller: nuevaFichaController,
+                                      decoration: InputDecoration(labelText: 'Nueva Ficha'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Cerrar el diálogo
+                                  },
+                                  child: Text('Cancelar'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    Navigator.of(context).pop(); // Cerrar el diálogo
+                                    await ActualizarUsuario(
+                                      usuarioId,
+                                      nuevoNombreController.text,
+                                      nuevoApellidoController.text,
+                                      nuevoTipoController.text,
+                                      nuevoCelularController.text,
+                                      nuevoCorreoController.text,
+                                      nuevaFichaController.text,
+                                    );
+                                  },
+                                  child: Text('Actualizar'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: const Text('Actualizar Usuario'),
                   ),
                 ],
               ),
