@@ -109,7 +109,6 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
     }
   }
 
-
   Future<void> cargarDatosUsuario(int index) async {
     if (DatosUsuario.isNotEmpty && index < DatosUsuario.length) {
       final item = DatosUsuario[index];
@@ -147,6 +146,7 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
               Navigator.pop(context);
             },
           ),
+          backgroundColor: Colors.purple, // Color púrpura para el encabezado
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -169,7 +169,17 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
                     BuscarUsuario(usuarioId);
                   }
                 },
-                child: const Text('Buscar Usuario'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple, // Color púrpura para el botón
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.search),
+                    SizedBox(width: 8),
+                    Text('Buscar Usuario'),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -205,13 +215,22 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
                         );
                       }
                     },
-                    child: const Text('Eliminar Usuario por ID'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple, // Color púrpura para el botón
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.delete),
+                        SizedBox(width: 8),
+                        Text('Eliminar '),
+                      ],
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       final usuarioId = int.tryParse(usuarioIdController.text);
                       if (usuarioId != null) {
-                        cargarDatosUsuario(0); // Cargar datos del primer usuario en la lista
+                        cargarDatosUsuario(0);
                         // Mostrar el diálogo de actualización
                         showDialog(
                           context: context,
@@ -280,7 +299,16 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
                         );
                       }
                     },
-                    child: const Text('Actualizar Usuario'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple, // Color púrpura para el botón
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.edit),
+                        SizedBox(width: 8),
+                        Text('Actualizar Usuario'),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -327,3 +355,4 @@ class _ConsultarUsuariosApiState extends State<ConsultarUsuariosApi> {
     );
   }
 }
+

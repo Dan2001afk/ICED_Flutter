@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class FiguraPrincipal extends StatelessWidget {
   const FiguraPrincipal({Key? key}) : super(key: key);
 
-  // Método para cargar la imagen desde la carpeta de assets
+
   Widget _imagenLogo() {
     return Image.asset(
-      'imagenes/iced_logo.png', // Asegúrate de que la ruta sea correcta
+      'imagenes/iced_logo.png',
       width: 190,
       height: 190,
-      fit: BoxFit.contain, // Puedes ajustar esto según tus necesidades
+      fit: BoxFit.contain,
     );
   }
 

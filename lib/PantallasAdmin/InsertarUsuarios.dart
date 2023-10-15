@@ -59,6 +59,7 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
             Navigator.pop(context);
           },
         ),
+        backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -167,6 +168,10 @@ class _InsertarUsuariosState extends State<InsertarUsuarios> {
               ElevatedButton(
                 onPressed: _EnviarFormularioUsuario,
                 child: const Text('Guardar Datos'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple, // Color morado
+                  onPrimary: Colors.white, // Text color
+                ),
               )
             ],
           ),

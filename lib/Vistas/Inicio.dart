@@ -53,13 +53,13 @@ class HomePage extends StatelessWidget {
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.green, // Cambia el color de fondo del botón
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5), // Ajusta el tamaño del botón
+              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2), // Ajusta el tamaño del botón
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0), // Ajusta el radio de los bordes
+                borderRadius: BorderRadius.circular(50.0), // Ajusta el radio de los bordes
               ),
             ),
             child: Text(
-              'Administradores',
+              'ADMIN',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.purple, Colors.black87],
+              colors: [Colors.purple, Colors.indigo],
             ),
           ),
           child: Center(
@@ -126,7 +126,7 @@ class HomePage extends StatelessWidget {
                     primary: Colors.green, // Cambia el color de fondo del botón
                     onPrimary: Colors.white, // Cambia el color del texto en el botón
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
                 ),

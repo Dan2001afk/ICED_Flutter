@@ -115,14 +115,14 @@ class _PrincipalState extends State<Principal> {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
-        backgroundColor: Color(0xFF6C1073),
+        backgroundColor: Color(0xFFA20999),
       ),
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF2D2272), Color(0xFF6C1073)],
+            colors: [Color(0xFF2C2FEF), Color(0xFFA20999)],
           ),
         ),
         child: Center(
