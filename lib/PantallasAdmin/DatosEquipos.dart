@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(const ConsultarEquiposApi());
@@ -14,7 +15,7 @@ class ConsultarEquiposApi extends StatefulWidget {
 }
 
 class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
-  List<dynamic> Datos = [];
+  List<dynamic> datos = [];
   TextEditingController equipoIdController = TextEditingController();
   TextEditingController nuevoTipoController = TextEditingController();
   TextEditingController nuevoModeloController = TextEditingController();
@@ -23,45 +24,45 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
   TextEditingController nuevoEstadoController = TextEditingController();
   TextEditingController nuevaEspecialidadController = TextEditingController();
 
-  Future<void> ConsultarDatos() async {
+  Future<void> consultarDatos() async {
     final url = Uri.parse("http://192.168.1.44/ListarEquipos");
-    final Respuesta = await http.get(url);
-    if (Respuesta.statusCode == 200) {
-      final jsonResponse = json.decode(Respuesta.body);
+    final respuesta = await http.get(url);
+    if (respuesta.statusCode == 200) {
+      final jsonResponse = json.decode(respuesta.body);
       setState(() {
-        Datos = List.from(jsonResponse);
+        datos = List.from(jsonResponse);
       });
     } else {
-      print("Error: No se consultó la Api");
+      print("Error: No se consultó la API");
     }
   }
 
-  Future<void> BuscarEquipo(int equipoId) async {
-    final url = Uri.parse("http://192.168.1.44/BuscarEquipo/$equipoId");
-    final Respuesta = await http.get(url);
-    if (Respuesta.statusCode == 200) {
-      final jsonResponse = json.decode(Respuesta.body);
+  Future<void> buscarEquipo(int equipoId) async {
+    final url = Uri.parse("http://192.168.1.44/BuscarEquipoID/$equipoId");
+    final respuesta = await http.get(url);
+    if (respuesta.statusCode == 200) {
+      final jsonResponse = json.decode(respuesta.body);
       setState(() {
-        Datos = [jsonResponse];
+        datos = [jsonResponse];
       });
     } else {
       print("Error: No se encontró el equipo");
     }
   }
 
-  Future<void> EliminarEquipo(int equipoId) async {
+  Future<void> eliminarEquipo(int equipoId) async {
     final url = Uri.parse("http://192.168.1.44/EliminarEquipo/$equipoId");
-    final Respuesta = await http.delete(url);
-    if (Respuesta.statusCode == 200) {
-      final jsonResponse = json.decode(Respuesta.body);
-      print(jsonResponse['Mensaje']);
-      ConsultarDatos();
+    final respuesta = await http.delete(url);
+    if (respuesta.statusCode == 200) {
+      final jsonResponse = json.decode(respuesta.body);
+      Fluttertoast.showToast(msg: jsonResponse['Mensaje']);
+      consultarDatos();
     } else {
       print("Error: No se pudo eliminar el equipo");
     }
   }
 
-  Future<void> ActualizarEquipo(
+  Future<void> actualizarEquipo(
       int equipoId,
       String nuevoTipo,
       String nuevoModelo,
@@ -71,10 +72,10 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
       String nuevaEspecialidad,
       ) async {
     final url = Uri.parse("http://192.168.1.44/ActualizarEquipo/$equipoId");
-    final Respuesta = await http.post(
+    final respuesta = await http.post(
       url,
       body: jsonEncode({
-        "Equ_id": equipoId, // Usar el ID recibido como parámetro
+        "Equ_id": equipoId,
         "Equi_tipo": nuevoTipo,
         "Equi_modelo": nuevoModelo,
         "Equi_color": nuevoColor,
@@ -85,37 +86,19 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
       headers: {'Content-Type': 'application/json'},
     );
 
-    if (Respuesta.statusCode == 200) {
-      final jsonResponse = json.decode(Respuesta.body);
-      print(jsonResponse['Mensaje']);
-      ConsultarDatos();
+    if (respuesta.statusCode == 200) {
+      final jsonResponse = json.decode(respuesta.body);
+      Fluttertoast.showToast(msg: jsonResponse['Mensaje']);
+      consultarDatos();
     } else {
       print("Error: No se pudo actualizar el equipo");
-    }
-  }
-
-
-  Future<void> cargarDatosExistente(int equipoId) async {
-    final url = Uri.parse("http://192.168.1.44/BuscarEquipo/$equipoId");
-    final Respuesta = await http.get(url);
-    if (Respuesta.statusCode == 200) {
-      final jsonResponse = json.decode(Respuesta.body);
-      final item = jsonResponse;
-      nuevoTipoController.text = item['Equi_tipo'];
-      nuevoModeloController.text = item['Equi_modelo'];
-      nuevoColorController.text = item['Equi_color'];
-      nuevoSerialController.text = item['Equi_serial'];
-      nuevoEstadoController.text = item['Equi_estado'];
-      nuevaEspecialidadController.text = item['equi_especialidad'];
-    } else {
-      print("Error: No se pudieron cargar los datos existentes");
     }
   }
 
   @override
   void initState() {
     super.initState();
-    ConsultarDatos();
+    consultarDatos();
   }
 
   @override
@@ -124,10 +107,22 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
       theme: ThemeData(
         primaryColor: Colors.purple,
         fontFamily: 'Roboto',
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.purple,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.purple,
+            textStyle: TextStyle(fontSize: 16),
+          ),
+        ),
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Datos"),
+          title: const Text("Acciones Equipos"),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -140,161 +135,210 @@ class _ConsultarEquiposApiState extends State<ConsultarEquiposApi> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(
-                controller: equipoIdController,
-                decoration: InputDecoration(
-                  labelText: 'ID del Equipo',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: equipoIdController,
+                      decoration: InputDecoration(
+                        labelText: 'ID del Equipo',
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      final equipoId = int.tryParse(equipoIdController.text);
+                      if (equipoId != null) {
+                        buscarEquipo(equipoId);
+                      }
+                    },
+                    icon: Icon(Icons.search),
+                    label: Text('Buscar'),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  final equipoId = int.tryParse(equipoIdController.text);
-                  if (equipoId != null) {
-                    BuscarEquipo(equipoId);
-                    cargarDatosExistente(equipoId);
-                  }
-                },
-                child: const Text('Buscar Equipo'),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  final equipoId = int.tryParse(equipoIdController.text);
-                  if (equipoId != null) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Actualizar Equipo'),
-                          content: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                TextField(
-                                  controller: nuevoTipoController,
-                                  decoration: InputDecoration(labelText: 'Nuevo Tipo'),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      final equipoId = int.tryParse(equipoIdController.text);
+                      if (equipoId != null) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Actualizar Equipo'),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      controller: nuevoTipoController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Tipo'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoModeloController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Modelo'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoColorController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Color'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoSerialController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Serial'),
+                                    ),
+                                    TextField(
+                                      controller: nuevoEstadoController,
+                                      decoration: InputDecoration(labelText: 'Nuevo Estado'),
+                                    ),
+                                    TextField(
+                                      controller: nuevaEspecialidadController,
+                                      decoration: InputDecoration(labelText: 'Nueva Especialidad'),
+                                    ),
+                                  ],
                                 ),
-                                TextField(
-                                  controller: nuevoModeloController,
-                                  decoration: InputDecoration(labelText: 'Nuevo Modelo'),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Cancelar'),
                                 ),
-                                TextField(
-                                  controller: nuevoColorController,
-                                  decoration: InputDecoration(labelText: 'Nuevo Color'),
-                                ),
-                                TextField(
-                                  controller: nuevoSerialController,
-                                  decoration: InputDecoration(labelText: 'Nuevo Serial'),
-                                ),
-                                TextField(
-                                  controller: nuevoEstadoController,
-                                  decoration: InputDecoration(labelText: 'Nuevo Estado'),
-                                ),
-                                TextField(
-                                  controller: nuevaEspecialidadController,
-                                  decoration: InputDecoration(labelText: 'Nueva Especialidad'),
+                                TextButton(
+                                  onPressed: () async {
+                                    Navigator.of(context).pop();
+                                    await actualizarEquipo(
+                                      equipoId!,
+                                      nuevoTipoController.text,
+                                      nuevoModeloController.text,
+                                      nuevoColorController.text,
+                                      nuevoSerialController.text,
+                                      nuevoEstadoController.text,
+                                      nuevaEspecialidadController.text,
+                                    );
+                                  },
+                                  child: Text('Actualizar Equipo'),
                                 ),
                               ],
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Cancelar'),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                Navigator.of(context).pop();
-                                await ActualizarEquipo(
-                                  equipoId,
-                                  nuevoTipoController.text,
-                                  nuevoModeloController.text,
-                                  nuevoColorController.text,
-                                  nuevoSerialController.text,
-                                  nuevoEstadoController.text,
-                                  nuevaEspecialidadController.text,
-                                );
-                              },
-                              child: Text('Actualizar'),
-                            ),
-                          ],
+                            );
+                          },
                         );
-                      },
-                    );
-                  }
-                },
-                child: const Text('Actualizar Equipo'),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  final equipoId = int.tryParse(equipoIdController.text);
-                  if (equipoId != null) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Eliminar'),
-                          content: Text('¿ESTÁS SEGURO DE ELIMINAR EL DISPOSITIVO?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Cancelar'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                EliminarEquipo(equipoId);
-                              },
-                              child: Text('Eliminar'),
-                            ),
-                          ],
+                      }
+                    },
+                    icon: Icon(Icons.update),
+                    label: Text('Editar Equipo'),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      final equipoId = int.tryParse(equipoIdController.text);
+                      if (equipoId != null) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Eliminar'),
+                              content: Text('¿ESTÁS SEGURO DE ELIMINAR EL DISPOSITIVO?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Cancelar'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    eliminarEquipo(equipoId);
+                                  },
+                                  child: Text('Eliminar'),
+                                ),
+                              ],
+                            );
+                          },
                         );
-                      },
-                    );
-                  }
-                },
-                child: const Text('Eliminar Equipo por ID'),
+                      }
+                    },
+                    icon: Icon(Icons.delete),
+                    label: Text('Eliminar Equipo'),
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 12),
               Expanded(
-                child: ListView.builder(
-                  itemCount: Datos.length,
-                  itemBuilder: (context, index) {
-                    final item = Datos[index];
-                    return Card(
-                      margin: const EdgeInsets.all(8),
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item['Equ_id'].toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text('Tipo: ${item['Equi_tipo']}'),
-                            Text('Modelo: ${item['Equi_modelo']}'),
-                            Text('Color: ${item['Equi_color']}'),
-                            Text('Serial: ${item['Equi_serial']}'),
-                            Text('Estado: ${item['Equi_estado']}'),
-                            Text('Especialidad: ${item['equi_especialidad']}'),
-                          ],
+                child: datos.isEmpty
+                    ? Center(
+                  child: Text(
+                    'No hay datos disponibles',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+                    : SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columns: [
+                      DataColumn(
+                        label: Text(
+                          'ID',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                    );
-                  },
+                      DataColumn(
+                        label: Text(
+                          'Tipo',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Modelo',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Color',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Serial',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Estado',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          'Especialidad',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                    rows: datos.map((item) {
+                      return DataRow(
+                        cells: [
+                          DataCell(Text(item['Equ_id'].toString())),
+                          DataCell(Text(item['Equi_tipo'])),
+                          DataCell(Text(item['Equi_modelo'])),
+                          DataCell(Text(item['Equi_color'])),
+                          DataCell(Text(item['Equi_serial'])),
+                          DataCell(Text(item['Equi_estado'])),
+                          DataCell(Text(item['equi_especialidad'])),
+                        ],
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
             ],

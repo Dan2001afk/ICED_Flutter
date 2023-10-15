@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'DatosEquipos.dart';
 
-
 class InsertarEquipo extends StatefulWidget {
   const InsertarEquipo({Key? key}) : super(key: key);
 
@@ -19,7 +18,8 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
   final TextEditingController _Equi_colorcontroller = TextEditingController();
   final TextEditingController _Equi_serialcontroller = TextEditingController();
   final TextEditingController _Equi_estadocontroller = TextEditingController();
-  final TextEditingController _equi_especialidadcontroller = TextEditingController();
+  final TextEditingController _equi_especialidadcontroller =
+  TextEditingController();
 
   void _EnviarFormulario() async {
     if (_formKey.currentState!.validate()) {
@@ -35,11 +35,15 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
       };
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarEquiposApi()));
+        context,
+        MaterialPageRoute(builder: (context) => ConsultarEquiposApi()),
+      );
 
-      final Respuesta = await http.post(Uri.parse(ApiUrl),
-          headers: {'Content-type': 'application/json'},
-          body: json.encode(requestBody));
+      final Respuesta = await http.post(
+        Uri.parse(ApiUrl),
+        headers: {'Content-type': 'application/json'},
+        body: json.encode(requestBody),
+      );
 
       if (Respuesta.statusCode == 200) {
         print('Datos enviados correctamente');
@@ -53,20 +57,38 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registro de Equipos"),
+        title: Text(
+          "Registro de Equipos",
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white // Color morado
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Text(
+                'Registrar nuevo Equipo en el CBA',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple,
+                ),
+              ),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _Equ_idcontroller,
                 decoration: InputDecoration(
@@ -168,6 +190,10 @@ class _InsertarEquipoState extends State<InsertarEquipo> {
               ElevatedButton(
                 onPressed: _EnviarFormulario,
                 child: const Text('Guardar Datos'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple, // Color morado
+                  onPrimary: Colors.white, // Text color
+                ),
               )
             ],
           ),

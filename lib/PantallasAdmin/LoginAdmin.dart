@@ -10,7 +10,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: Color.fromARGB(255, 117, 30, 157),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white,),
           onPressed: () {
@@ -18,7 +18,7 @@ class Login extends StatelessWidget {
           },
         ),
         title: Text(
-          'Inicio de Sesión Administrador',
+          'Administrador',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -32,14 +32,14 @@ class Login extends StatelessWidget {
                   center: Alignment.topLeft,
                   radius: 1.3,
                   colors: [
-                    Color(0xFF580864),
-                    Color(0xFF0E091A),
+                    Color(0xFFA914C4),
+                    Color(0xFF3A1691),
                   ]
               )
           ),
           child: Column(
             children: [
-              figura_principal(),
+              FiguraPrincipal(),
               BotonesLogin(),
             ],
           ),

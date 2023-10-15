@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class figura_principal extends StatelessWidget {
-  const figura_principal({Key? key}) : super(key: key);
+class FiguraPrincipal extends StatelessWidget {
+  const FiguraPrincipal({Key? key}) : super(key: key);
 
-
-  //icono y estilos del icono menu
-  Widget _icono(){
-    return Container(
-      decoration: BoxDecoration(
-        //border:  Border.all(color: Colors.white, width: 2),
-          shape: BoxShape.circle),
-      child: const Icon(Icons.adb_rounded,
-          color: Colors.deepPurple,size: 190),
+  // Método para cargar la imagen desde la carpeta de assets
+  Widget _imagenLogo() {
+    return Image.asset(
+      'imagenes/iced_logo.png', // Asegúrate de que la ruta sea correcta
+      width: 190,
+      height: 190,
+      fit: BoxFit.contain, // Puedes ajustar esto según tus necesidades
     );
   }
 
@@ -28,7 +26,7 @@ class figura_principal extends StatelessWidget {
               color: Color.fromRGBO(250, 248, 248, 1.0), // Color rgb
               shape: BoxShape.circle,
             ),
-            child: _icono(),
+            child: _imagenLogo(),
           ),
         ),
       ],

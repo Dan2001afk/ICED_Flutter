@@ -75,9 +75,11 @@ class _BotonesLoginState extends State<BotonesLogin> {
           floatingLabelBehavior: FloatingLabelBehavior.always,
         ),
         controller: clave,
+        obscureText: true, // Configura esto a true para ocultar la contraseña
       ),
     );
   }
+
 
   Container Enviar_Datos() {
     return Container(
@@ -126,7 +128,7 @@ class _BotonesLoginState extends State<BotonesLogin> {
         ),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
-            Color.fromRGBO(88, 8, 100, 1.0), //Color
+            Color.fromRGBO(126, 18, 150, 1.0), //Color
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
