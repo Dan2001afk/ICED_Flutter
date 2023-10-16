@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:iced/PantallasAdmin/DatosUsuarios.dart';
 import 'dart:convert';
 import 'DatosPrestamos.dart';
 import 'package:intl/intl.dart';
-
-
 
 class InsertarPrestamo extends StatefulWidget {
   const InsertarPrestamo({Key? key}) : super(key: key);
@@ -14,83 +11,86 @@ class InsertarPrestamo extends StatefulWidget {
   State<InsertarPrestamo> createState() => _InsertarPrestamoState();
 }
 
-
 class _InsertarPrestamoState extends State<InsertarPrestamo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _Pres_Idcontroller = TextEditingController();
-  final TextEditingController _Pres_Hora_Entregacontroller=TextEditingController();
-  final TextEditingController _Pres_Fec_Entregacontroller = TextEditingController();
-  final TextEditingController _Pres_Tiempo_Limitecontroller = TextEditingController();
-  final TextEditingController _Pres_observaciones_entregacontroller = TextEditingController();
-  final TextEditingController _Equi_serialcontroller = TextEditingController();
-  final TextEditingController _Pres_Equipos_idcontroller = TextEditingController();
-  final TextEditingController _Pres_Usuarios_Documento_idcontroller = TextEditingController();
-
+  final TextEditingController _Pres_Equipos_serialController =
+  TextEditingController();
+  final TextEditingController _Pres_Usuarios_Documento_idController =
+  TextEditingController();
+  final TextEditingController _Pres_Tiempo_LimiteController =
+  TextEditingController();
 
   void _EnviarFormularioPrestamos() async {
     if (_formKey.currentState!.validate()) {
-      final String ApiUrl = "http://192.168.1.44/insertarPrestamo/";
-      final Map<String, dynamic> requestBody = {
-        'Pres_Id': _Pres_Idcontroller.text,
-        'Pres_Fec_Entrega': _Pres_Fec_Entregacontroller.text,
-        'Pres_Hora_Entrega': _Pres_Hora_Entregacontroller.text,
-        'Pres_Tiempo_Limite': _Pres_Tiempo_Limitecontroller.text,
-        'Pres_Observaciones_entrega': _Pres_observaciones_entregacontroller.text,
-        'Equi_serial': _Equi_serialcontroller.text,
-        'Pres_Equipos_id': _Pres_Equipos_idcontroller.text,
-        'Pres_Usuarios_Documento_id': _Pres_Usuarios_Documento_idcontroller.text
+      final String verificarPrestamoUrl =
+          "http://192.168.1.44/verificarPrestamo/";
+      final String insertarPrestamoUrl =
+          "http://192.168.1.44/insertarPrestamo/";
+
+      final Map<String, dynamic> datos = {
+        'Pres_Equipos_serial': _Pres_Equipos_serialController.text,
+        'Pres_Usuarios_Documento_id':
+        _Pres_Usuarios_Documento_idController.text,
+        'Pres_Tiempo_Limite': _Pres_Tiempo_LimiteController.text,
       };
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ConsultarPrestamosApi()));
+      final jsonData = json.encode(datos);
 
-      final Respuesta = await http.post(Uri.parse(ApiUrl),
-          headers: {'Content-type': 'application/json'},
-          body: json.encode(requestBody));
+      try {
+        // Verificar préstamo
+        final response = await http.post(
+          Uri.parse(verificarPrestamoUrl),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonData,
+        );
 
-      if (Respuesta.statusCode == 200) {
-        print('Datos enviados correctamente');
-      } else {
-        print('Error al enviar los datos');
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+
+          if (data['error'] != null) {
+            // Muestra SweetAlert con el mensaje de error recibido del servidor
+            // (deberías implementar el manejo de SweetAlert o mostrar un mensaje de error en Flutter)
+            print("Error: ${data['error']}");
+          } else {
+            // Préstamo verificado correctamente, ahora insertar el préstamo
+            final responseInsertar = await http.post(
+              Uri.parse(insertarPrestamoUrl),
+              headers: {'Content-Type': 'application/json'},
+              body: jsonData,
+            );
+
+            if (responseInsertar.statusCode == 200) {
+              // Muestra SweetAlert de éxito
+              print('Préstamo registrado exitosamente');
+              // Puedes agregar más lógica aquí si es necesario
+            } else {
+              // Muestra SweetAlert de error al enviar los datos
+              print('Error al enviar los datos');
+            }
+          }
+        } else {
+          // Muestra SweetAlert de error en la solicitud
+          print('Error en la solicitud');
+        }
+      } catch (error) {
+        // Muestra SweetAlert de error general
+        print('Error: $error');
       }
     }
   }
-  int _formatHoraToMinutes(String hora) {
-    final parts = hora.split(':');
-    final horas = int.parse(parts[0]);
-    final minutos = int.parse(parts[1]);
-    return horas * 60 + minutos;
-  }
-  @override
-  void initState() {
-    super.initState();
-    // Asignar la fecha actual al controlador al cargar la pantalla
-    _Pres_Fec_Entregacontroller.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
-
-    // Asignar la hora actual al controlador al cargar la pantalla
-    _setHoraActual();
-  }
-
-  void _setHoraActual() {
-    final horaActual = TimeOfDay.now();
-    _Pres_Hora_Entregacontroller.text =
-    '${horaActual.hour.toString().padLeft(2, '0')}:${horaActual.minute.toString().padLeft(2, '0')}';
-  }
-
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registro de PRESTAMOS"),
+        title: const Text("Registro de Préstamos"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -99,100 +99,42 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
           child: Column(
             children: [
               TextFormField(
-                controller: _Pres_Idcontroller,
+                controller: _Pres_Equipos_serialController,
                 decoration: InputDecoration(
-                  labelText: 'ID ',
+                  labelText: 'Número de Serie del Equipo',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Ingrese el id del prestamo';
+                    return 'Ingrese el número de serie del equipo';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _Pres_Hora_Entregacontroller,
+                controller: _Pres_Usuarios_Documento_idController,
                 decoration: InputDecoration(
-                  labelText: 'Hora Entrega',
+                  labelText: 'Documento del Usuario',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Ingrese la hora de Entrega';
+                    return 'Ingrese el documento del usuario';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _Pres_Fec_Entregacontroller,
+                controller: _Pres_Tiempo_LimiteController,
                 decoration: InputDecoration(
-                  labelText: 'Fecha Entrega',
+                  labelText: 'Tiempo Límite del Préstamo',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Ingrese la Fecha de Entrega';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _Pres_Tiempo_Limitecontroller,
-                decoration: InputDecoration(
-                  labelText: 'Tiempo limite ',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Tiempo limite';
-                  }
-                  return null;
-                },
-              ),
-
-
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _Pres_observaciones_entregacontroller,
-                decoration: InputDecoration(
-                  labelText: 'Obsercacion',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Odservacion';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _Pres_Equipos_idcontroller,
-                decoration: InputDecoration(
-                    labelText: 'prestamo equipo ID',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'prestamo equipo ID';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _Pres_Usuarios_Documento_idcontroller,
-                decoration: InputDecoration(
-                  labelText: 'Documento del usuario ',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Documento del usuario';
+                    return 'Ingrese el tiempo límite del préstamo';
                   }
                   return null;
                 },
@@ -200,7 +142,11 @@ class _InsertarPrestamoState extends State<InsertarPrestamo> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _EnviarFormularioPrestamos,
-                child: const Text('Guardar Datos'),
+                child: const Text('Registrar Préstamo'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple, // Color morado
+                  onPrimary: Colors.white, // Text color
+                ),
               )
             ],
           ),

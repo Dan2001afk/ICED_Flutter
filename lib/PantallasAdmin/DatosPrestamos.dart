@@ -17,7 +17,6 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
   List<dynamic> DatosPrestamos = [];
   TextEditingController prestamoIdController = TextEditingController();
 
-
   Future<void> ConsultarDatosPrestamos() async {
     final url = Uri.parse("http://192.168.1.44/ListarPrestamos");
     final Respuesta = await http.get(url);
@@ -74,6 +73,7 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
               Navigator.pop(context);
             },
           ),
+          backgroundColor: Colors.purple, // Color púrpura para el encabezado
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -89,50 +89,70 @@ class _ConsultarPrestamosApiState extends State<ConsultarPrestamosApi> {
                 ),
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  final prestamoID = int.tryParse(prestamoIdController.text);
-                  if (prestamoID != null) {
-                    BuscarPrestamo(prestamoID);
-                  }
-                },
-                child: const Text('Buscar Préstamo'),
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      final prestamoID = int.tryParse(prestamoIdController.text);
-                      if (prestamoID != null) {
-                        // Mostrar el diálogo de confirmación
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Eliminar'),
-                              content: Text('¿ESTÁS SEGURO DE ELIMINAR EL PRÉSTAMO?'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); // Cerrar el diálogo
-                                  },
-                                  child: Text('Cancelar'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); // Cerrar el diálogo
-                                    EliminarPrestamo(prestamoID);
-                                  },
-                                  child: Text('Eliminar'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: const Text('Eliminar Préstamo por ID'),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final prestamoID = int.tryParse(prestamoIdController.text);
+                        if (prestamoID != null) {
+                          BuscarPrestamo(prestamoID);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(primary: Colors.purple),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.search, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text('Buscar', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16), // Espacio entre los botones
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final prestamoID = int.tryParse(prestamoIdController.text);
+                        if (prestamoID != null) {
+                          // Mostrar el diálogo de confirmación
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Eliminar'),
+                                content: Text('¿ESTÁS SEGURO DE ELIMINAR EL PRÉSTAMO?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Cerrar el diálogo
+                                    },
+                                    child: Text('Cancelar'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Cerrar el diálogo
+                                      EliminarPrestamo(prestamoID);
+                                    },
+                                    child: Text('Eliminar'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(primary: Colors.purple),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.delete, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text('Eliminar ', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
