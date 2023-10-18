@@ -53,7 +53,7 @@ class _DatosSancionesState extends State<DatosSanciones> {
   }
 
   Future<void> eliminarSancion(int sancionId) async {
-    final url = Uri.parse("http://192.168.1.44/EliminarSanciones/$sancionId");
+    final url = Uri.parse("http://192.168.1.44/EliminarSancion/$sancionId");
     final response = await http.delete(url);
 
     if (response.statusCode == 200) {
@@ -84,6 +84,7 @@ class _DatosSancionesState extends State<DatosSanciones> {
       );
     }
   }
+
 
   Future<void> actualizarSancion(
       int sancionId,
