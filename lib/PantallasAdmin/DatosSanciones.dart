@@ -155,7 +155,7 @@ class _DatosSancionesState extends State<DatosSanciones> {
               Navigator.pop(context);
             },
           ),
-          backgroundColor: Colors.red, // Color rojo para el encabezado
+          backgroundColor: Colors.purple, // Color rojo para el encabezado
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -179,7 +179,7 @@ class _DatosSancionesState extends State<DatosSanciones> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.red, // Color rojo para el botón
+                  primary: Colors.purple, // Color rojo para el botón
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -225,7 +225,7 @@ class _DatosSancionesState extends State<DatosSanciones> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red, // Color rojo para el botón
+                      primary: Colors.purple, // Color rojo para el botón
                     ),
                     child: Row(
                       children: const [
@@ -294,7 +294,7 @@ class _DatosSancionesState extends State<DatosSanciones> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red, // Color rojo para el botón
+                      primary: Colors.purple, // Color rojo para el botón
                     ),
                     child: Row(
                       children: const [
