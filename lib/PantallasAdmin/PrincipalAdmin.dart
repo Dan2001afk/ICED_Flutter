@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iced/PantallasAdmin/DatosEquipos.dart';
 import 'package:iced/PantallasAdmin/DatosPrestamos.dart';
+import 'package:iced/PantallasAdmin/DatosSanciones.dart';
 import 'package:iced/PantallasAdmin/DatosUsuarios.dart';
 import 'package:iced/PantallasAdmin/InsertarEquipos.dart';
 import 'package:iced/PantallasAdmin/InsertarPrestamo.dart';
+import 'package:iced/PantallasAdmin/InsertarSancion.dart';
 import 'package:iced/PantallasAdmin/InsertarUsuarios.dart';
 
 class Principal extends StatefulWidget {
@@ -160,9 +162,9 @@ class _PrincipalState extends State<Principal> {
                 _buildCard(
                   'Acciones Sanciones',
                   'Registro Sanciones',
-                  RegistroPage(), // Reemplaza con la página correcta para Sanciones
+                  InsertarSancion(),
                   'Datos Sanciones',
-                  DatosPage(), // Reemplaza con la página correcta para Datos Sanciones
+                  DatosSanciones(),
                 ),
               ],
             ),
